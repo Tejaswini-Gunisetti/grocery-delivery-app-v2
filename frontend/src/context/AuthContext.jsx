@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../api";
 import { AuthContext } from "./authContextValue";
 
 export const AuthProvider = ({ children }) => {
@@ -21,8 +21,8 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+      const response = await API.post(
+        "/auth/login",
         {
           email,
           password,

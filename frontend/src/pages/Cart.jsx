@@ -1,4 +1,4 @@
-import axios from "axios";
+import API from "../api";
 import { useAuth } from "../context/useAuth";
 import { useEffect } from 'react';
 import React, { useState } from 'react';
@@ -99,8 +99,8 @@ const Cart = () => {
 
       const token = localStorage.getItem("token");
 
-      await axios.post(
-        "http://localhost:5000/api/orders",
+      await API.post(
+        "/orders",
         orderData,
         {
           headers: {

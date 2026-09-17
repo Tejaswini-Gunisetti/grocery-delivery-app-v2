@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { OrdersContext } from './ordersContextValue';
-import { mockOrders as initialOrders } from '../utils/mockData';
 
 export const OrdersProvider = ({ children }) => {
   const [orders, setOrders] = useState(() => {
@@ -12,7 +11,7 @@ export const OrdersProvider = ({ children }) => {
         console.error("Error parsing saved orders", e);
       }
     }
-    return initialOrders;
+    return [];
   });
 
   useEffect(() => {

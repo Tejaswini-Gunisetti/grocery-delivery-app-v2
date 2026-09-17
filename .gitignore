@@ -9,5 +9,3 @@ node_modules/
 dist/
 build/
 
-# Local testing files
-frontend/src/utils/mockData.js

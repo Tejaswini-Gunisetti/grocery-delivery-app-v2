@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { formatCurrency } from "../../utils/helpers";
+import API from "../../api";
 
 const AdminDashboard = () => {
   const [products, setProducts] = useState([]);
@@ -14,18 +14,13 @@ const AdminDashboard = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const productsRes = await axios.get(
-        "http://localhost:5000/api/products"
-      );
+      const productsRes = await API.get("/products");
 
-      const ordersRes = await axios.get(
-        "http://localhost:5000/api/orders",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const ordersRes = await API.get("/orders", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setProducts(productsRes.data);
       setOrders(ordersRes.data);

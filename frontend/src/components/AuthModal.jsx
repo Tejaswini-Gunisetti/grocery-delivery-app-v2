@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-import axios from 'axios';
+import API from '../api';
 import { useAuth } from '../context/useAuth';
 import Toast from './Toast';
 
@@ -44,8 +44,8 @@ const AuthModal = () => {
         }, 1000);
 
       } else {
-        await axios.post(
-          'http://localhost:5000/api/auth/register',
+        await API.post(
+          '/auth/register',
           {
             name,
             email,
