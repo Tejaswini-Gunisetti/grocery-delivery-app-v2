@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../api";
 import { ProductsContext } from "./productsContextValue";
 
 export const ProductsProvider = ({ children }) => {
@@ -7,9 +7,7 @@ export const ProductsProvider = ({ children }) => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/products"
-      );
+      const response = await API.get("/products");
 
       setProducts(response.data);
     } catch (error) {
@@ -20,20 +18,17 @@ export const ProductsProvider = ({ children }) => {
   useEffect(() => {
     fetchProducts();
   }, []);
+
   // ADD PRODUCT
   const addProduct = async (productData) => {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.post(
-        "http://localhost:5000/api/products",
-        productData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await API.post("/products", productData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       fetchProducts();
     } catch (error) {
@@ -41,21 +36,16 @@ export const ProductsProvider = ({ children }) => {
     }
   };
 
-
   // EDIT PRODUCT
   const editProduct = async (id, updatedData) => {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.put(
-        `http://localhost:5000/api/products/${id}`,
-        updatedData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await API.put(`/products/${id}`, updatedData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       fetchProducts();
     } catch (error) {
@@ -68,14 +58,11 @@ export const ProductsProvider = ({ children }) => {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.delete(
-        `http://localhost:5000/api/products/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await API.delete(`/products/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       fetchProducts();
     } catch (error) {
@@ -94,8 +81,8 @@ export const ProductsProvider = ({ children }) => {
 
       const token = localStorage.getItem("token");
 
-      await axios.put(
-        `http://localhost:5000/api/products/${id}`,
+      await API.put(
+        `/products/${id}`,
         {
           inStock: !product.inStock,
         },
